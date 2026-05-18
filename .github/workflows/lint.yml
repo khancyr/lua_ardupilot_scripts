@@ -1,0 +1,76 @@
+name: Lint
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  pre-commit:
+    name: pre-commit (luacheck, markdownlint, ruff, validate-scripts)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install luacheck
+        run: sudo apt-get install -y lua-check
+
+      - name: Install tooling dependencies
+        run: pip install -r requirements.txt
+
+      - uses: pre-commit/action@v3.0.1
+
+  lua-syntax:
+    name: Lua syntax check (luac -p)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua
+        run: sudo apt-get install -y lua5.3
+
+      - name: Check all .lua files compile
+        run: |
+          find applets drivers tools -name "*.lua" | while read -r f; do
+            luac5.3 -p "$f" || exit 1
+          done
+
+  website-tests:
+    name: Website tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+  hook-tests:
+    name: validate_scripts.py tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run hook tests
+        run: pytest .pre-commit-hooks/tests/ -v

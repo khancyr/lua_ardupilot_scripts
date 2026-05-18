@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Browse Scripts — ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<h1>Browse Scripts</h1>
+
+<form class="filters" method="get" action="/scripts">
+    <input type="search" name="q" value="{{ q }}" placeholder="Search…" />
+    <select name="type">
+        <option value="">All types</option>
+        {% for t in types %}
+        <option value="{{ t }}" {% if type==t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+    </select>
+    <select name="vehicle">
+        <option value="">All vehicles</option>
+        <option value="copter" {% if vehicle=="copter" %}selected{% endif %}>Copter</option>
+        <option value="plane" {% if vehicle=="plane" %}selected{% endif %}>Plane</option>
+        <option value="rover" {% if vehicle=="rover" %}selected{% endif %}>Rover</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<p class="result-count">{{ scripts|length }} script(s) found</p>
+
+<div class="card-grid">
+    {% for s in scripts %}
+    <a class="card" href="{{ s.doc_url }}">
+        <span class="card-type">{{ s.type }}</span>
+        <h3>{{ s.name }}</h3>
+        <p>{{ s.short_description }}</p>
+        <span class="card-meta">v{{ s.version }} · {{ s.date }}</span>
+    </a>
+    {% else %}
+    <p>No scripts match your search.</p>
+    {% endfor %}
+</div>
+{% endblock %}

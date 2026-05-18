@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ script.name }} — ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<div class="script-header">
+    <span class="card-type">{{ script.type }}</span>
+    <h1>{{ script.name }}</h1>
+    <p class="lead">{{ script.short_description }}</p>
+
+    <table class="meta-table">
+        <tr>
+            <th>Version</th>
+            <td>{{ script.version }}</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ script.date }}</td>
+        </tr>
+        {% if script.min_firmware %}
+        <tr>
+            <th>Min firmware</th>
+            <td>{{ script.min_firmware }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Vehicle</th>
+            <td>{{ script.vehicle | join(", ") }}</td>
+        </tr>
+    </table>
+
+    <div class="download-box">
+        <code>{{ request.url.scheme }}://{{ request.url.netloc }}{{ script.download_url }}</code>
+        <a class="btn" href="{{ script.download_url }}" download="{{ script.name }}.lua">
+            Download .lua
+        </a>
+    </div>
+</div>
+
+<article class="script-body">
+    {{ description_html | safe }}
+</article>
+
+<p><a href="/scripts">← Back to browse</a></p>
+{% endblock %}

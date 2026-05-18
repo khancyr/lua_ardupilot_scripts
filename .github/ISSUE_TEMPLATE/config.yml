@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: "\U0001F4AC User support & questions"
+    url: https://discuss.ardupilot.org/c/onboard-lua-scripting/156
+    about: >
+      For questions about using Lua scripts, setting up scripting on your
+      autopilot, or help debugging your own script, please use the ArduPilot
+      forum. GitHub issues are for code bugs only.

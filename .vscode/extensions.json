@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "sumneko.lua",
+        "DavidAnson.vscode-markdownlint",
+        "charliermarsh.ruff"
+    ]
+}

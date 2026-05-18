@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}ArduPilot Lua Community Scripts{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a class="brand" href="/">ArduPilot Lua Scripts</a>
+            <a href="/scripts">Browse Scripts</a>
+            <a href="/contribute">Contribute</a>
+            <a href="/api-reference">API Reference</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Community repository for <a href="https://ardupilot.org" target="_blank" rel="noopener">ArduPilot</a> Lua
+            scripts.</p>
+    </footer>
+</body>
+
+</html>

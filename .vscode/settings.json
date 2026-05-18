@@ -1,0 +1,19 @@
+{
+    "Lua.runtime.version": "Lua 5.3",
+    "Lua.workspace.library": [
+        ".checks"
+    ],
+    "Lua.workspace.checkThirdParty": false,
+    "Lua.diagnostics.globals": [],
+    "Lua.diagnostics.severity": {
+        "undefined-global": "Warning"
+    },
+    "[lua]": {
+        "editor.defaultFormatter": "sumneko.lua"
+    },
+    "Lua.format.enable": true,
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    }
+}

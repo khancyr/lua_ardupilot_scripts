@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Contribute — ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<h1 class="contribute-title">Contributing &amp; Support</h1>
+
+<div class="contrib-grid">
+
+    <!-- Support callout -->
+    <section class="contrib-card callout-forum" id="support">
+        <h2>&#x1F4AC; Need help?</h2>
+        <p>
+            For questions about using scripts, setting up scripting on your autopilot, or debugging
+            your own Lua code, please use the ArduPilot community forum — not GitHub issues.
+        </p>
+        <a class="btn" href="https://discuss.ardupilot.org/c/onboard-lua-scripting/156" target="_blank"
+            rel="noopener">ArduPilot Lua Scripting forum &rarr;</a>
+    </section>
+
+    <!-- Report broken script -->
+    <section class="contrib-card" id="broken-script">
+        <h2>&#x1F41B; Report a broken script</h2>
+        <p>
+            If a script in this repository crashes, produces wrong results, or no longer works with
+            a supported firmware version, open a GitHub issue using the
+            <strong>Broken script</strong> template.
+        </p>
+        <p>Please include:</p>
+        <ul>
+            <li>Script name and path (e.g. <code>applets/HelloWorld</code>)</li>
+            <li>ArduPilot firmware version and vehicle type</li>
+            <li>Steps to reproduce and any error messages from the GCS</li>
+        </ul>
+        <a class="btn btn-outline"
+            href="https://github.com/ArduPilot/lua_community_scripts/issues/new?template=broken_script.yml"
+            target="_blank" rel="noopener">Open a script issue &rarr;</a>
+    </section>
+
+    <!-- Report website bug -->
+    <section class="contrib-card" id="website-bug">
+        <h2>&#x1F310; Report a website bug</h2>
+        <p>
+            Found a problem with this website or the REST API? Open a GitHub issue using the
+            <strong>Website / API bug</strong> template.
+        </p>
+        <a class="btn btn-outline"
+            href="https://github.com/ArduPilot/lua_community_scripts/issues/new?template=website_bug.yml"
+            target="_blank" rel="noopener">Open a website issue &rarr;</a>
+    </section>
+
+    <!-- Submit a script -->
+    <section class="contrib-card" id="submit-script">
+        <h2>&#x1F4E6; Submit a new script</h2>
+        <p>
+            Want to share your script with the community? Great! Every contribution needs a
+            <code>.lua</code> file and a matching <code>.md</code> documentation file with YAML
+            frontmatter.
+        </p>
+        <p>The frontmatter must include:</p>
+        <table class="contrib-table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Example</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>name</code></td>
+                    <td><code>HelloWorld</code></td>
+                    <td>Unique across all scripts</td>
+                </tr>
+                <tr>
+                    <td><code>short_description</code></td>
+                    <td><code>Greets the GCS every 5 s</code></td>
+                    <td>Max 127 characters</td>
+                </tr>
+                <tr>
+                    <td><code>version</code></td>
+                    <td><code>1.0.0</code></td>
+                    <td>Semantic versioning</td>
+                </tr>
+                <tr>
+                    <td><code>date</code></td>
+                    <td><code>2026-05-18</code></td>
+                    <td>YYYY-MM-DD</td>
+                </tr>
+                <tr>
+                    <td><code>min_firmware</code></td>
+                    <td><code>4.5</code></td>
+                    <td>Use <code>4.5</code> if unknown</td>
+                </tr>
+                <tr>
+                    <td><code>vehicle</code></td>
+                    <td><code>[copter, plane]</code></td>
+                    <td>Optional; omit for all</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top:0.75rem">
+            Read the full guidelines before opening a PR:
+        </p>
+        <a class="btn btn-outline" href="https://github.com/ArduPilot/lua_community_scripts/blob/main/CONTRIBUTING.md"
+            target="_blank" rel="noopener">Read CONTRIBUTING.md &rarr;</a>
+    </section>
+
+</div>
+{% endblock %}

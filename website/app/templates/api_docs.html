@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block title %}API Reference — ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<div class="docs-layout">
+    <aside class="docs-toc">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#health">Health</a></li>
+            <li><a href="#types">Script types</a></li>
+            <li><a href="#list">List scripts</a></li>
+            <li><a href="#detail">Script detail</a></li>
+            <li><a href="#raw">Download script</a></li>
+        </ul>
+    </aside>
+
+    <div class="docs-content">
+        <h1>API Reference</h1>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                The REST API lets you programmatically browse and download ArduPilot Lua scripts.
+                All responses are JSON (UTF-8) and the API is read-only with no authentication required.
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Base URL</th>
+                        <td><code>/api/v1</code></td>
+                    </tr>
+                    <tr>
+                        <th>Format</th>
+                        <td>JSON (UTF-8)</td>
+                    </tr>
+                    <tr>
+                        <th>Authentication</th>
+                        <td>None — read-only public API</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top:0.75rem">
+                An interactive explorer (Swagger UI) is also available at
+                <a href="/api/docs">/api/docs</a>.
+            </p>
+        </section>
+
+        <section id="health">
+            <h2><span class="method-badge get">GET</span> /api/v1/health</h2>
+            <p>Returns the health status of the API and the total number of indexed scripts.</p>
+            <h3>Response</h3>
+            <pre><code>{
+  "status": "ok",
+  "script_count": 42
+}</code></pre>
+        </section>
+
+        <section id="types">
+            <h2><span class="method-badge get">GET</span> /api/v1/types</h2>
+            <p>Returns the count of indexed scripts broken down by category.</p>
+            <h3>Response</h3>
+            <pre><code>[
+  { "type": "applets", "count": 10 },
+  { "type": "drivers", "count": 5 },
+  { "type": "tools",   "count": 3 }
+]</code></pre>
+        </section>
+
+        <section id="list">
+            <h2><span class="method-badge get">GET</span> /api/v1/scripts</h2>
+            <p>Returns a paginated list of scripts with optional search and filter parameters.</p>
+            <h3>Query parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>q</code></td>
+                        <td>string</td>
+                        <td>—</td>
+                        <td>Full-text search on <code>name</code> and <code>short_description</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>string</td>
+                        <td>—</td>
+                        <td>Filter by category: <code>applets</code>, <code>drivers</code>, or <code>tools</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>vehicle</code></td>
+                        <td>string</td>
+                        <td>—</td>
+                        <td>Filter by target vehicle: <code>copter</code>, <code>plane</code>, <code>rover</code>, etc.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>page</code></td>
+                        <td>integer</td>
+                        <td>1</td>
+                        <td>Page number (1-based)</td>
+                    </tr>
+                    <tr>
+                        <td><code>limit</code></td>
+                        <td>integer</td>
+                        <td>50</td>
+                        <td>Results per page (max 200)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Response</h3>
+            <pre><code>{
+  "total": 18,
+  "page": 1,
+  "limit": 50,
+  "results": [
+    {
+      "name": "HelloWorld",
+      "type": "applets",
+      "short_description": "Minimal example applet",
+      "version": "1.0.0",
+      "date": "2026-05-18",
+      "vehicle": null,
+      "min_firmware": null,
+      "description": null
+    }
+  ]
+}</code></pre>
+        </section>
+
+        <section id="detail">
+            <h2><span class="method-badge get">GET</span> /api/v1/scripts/{type}/{name}</h2>
+            <p>Returns full metadata and the documentation body for a single script.</p>
+            <h3>Path parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>Script category: <code>applets</code>, <code>drivers</code>, or <code>tools</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>Script stem (filename without <code>.lua</code>), e.g. <code>HelloWorld</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Response</h3>
+            <pre><code>{
+  "name": "HelloWorld",
+  "type": "applets",
+  "short_description": "Minimal example applet",
+  "version": "1.0.0",
+  "date": "2026-05-18",
+  "vehicle": null,
+  "min_firmware": null,
+  "description": "## Description\n\nSends a GCS message every 5 seconds."
+}</code></pre>
+            <h3>Error responses</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>404</code></td>
+                        <td>Script not found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="raw">
+            <h2><span class="method-badge get">GET</span> /api/v1/scripts/{type}/{name}/raw</h2>
+            <p>
+                Downloads the raw Lua source file.
+                Response <code>Content-Type</code> is <code>text/plain</code> and
+                <code>Content-Disposition</code> suggests saving as <code>{name}.lua</code>.
+            </p>
+            <h3>Path parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>Script category</td>
+                    </tr>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>Script stem</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Example</h3>
+            <pre><code>curl https://your-instance/api/v1/scripts/applets/HelloWorld/raw \
+  -o HelloWorld.lua</code></pre>
+            <h3>Error responses</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>404</code></td>
+                        <td>Script or Lua file not found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+{% endblock %}

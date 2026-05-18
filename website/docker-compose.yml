@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: website/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the repo root so the container always sees the latest scripts
+      - ..:/repo:ro
+    environment:
+      - REPO_ROOT=/repo
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

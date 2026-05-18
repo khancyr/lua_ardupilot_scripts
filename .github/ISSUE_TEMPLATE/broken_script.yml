@@ -1,0 +1,61 @@
+name: "\U0001F41B Broken script"
+description: Report a script that crashes, produces wrong results, or no longer works.
+labels: ["bug", "script"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Need help using a script?**
+        > This tracker is for **code bugs only**.
+        > For setup questions or general support please use the
+        > [ArduPilot Lua Scripting forum](https://discuss.ardupilot.org/c/onboard-lua-scripting/156).
+
+  - type: input
+    id: script
+    attributes:
+      label: Script
+      description: "Path to the script, e.g. `applets/HelloWorld`"
+      placeholder: applets/MyScript
+    validations:
+      required: true
+
+  - type: input
+    id: firmware
+    attributes:
+      label: ArduPilot firmware version
+      placeholder: "e.g. ArduCopter 4.5.2"
+    validations:
+      required: true
+
+  - type: input
+    id: vehicle
+    attributes:
+      label: Vehicle type
+      placeholder: "e.g. QuadCopter, Fixed Wing, Rover"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's wrong?
+      description: What did you expect to happen and what actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Copy script to APM/scripts/ on SD card
+        2. Enable scripting (SCR_ENABLE = 1) and reboot
+        3. …
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or error output
+      description: Paste any scripting error messages from the GCS or dataflash log.
+      render: text

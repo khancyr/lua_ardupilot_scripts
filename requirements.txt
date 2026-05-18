@@ -1,0 +1,5 @@
+# Development tooling — used by pre-commit and the validate_scripts.py hook
+pre-commit==4.2.0
+pyyaml==6.0.2
+pytest==8.3.5
+ruff==0.11.9

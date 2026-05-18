@@ -1,0 +1,12 @@
+.git/
+.venv/
+venv/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+.pre-commit-cache/
+.ruff_cache/
+.github/
+.vscode/
+website/tests/
+.pre-commit-hooks/tests/
