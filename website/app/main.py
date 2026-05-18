@@ -125,10 +125,7 @@ async def list_scripts(
     results = _filter_scripts(q=q, script_type=type, vehicle=vehicle)
     total = len(results)
     start = (page - 1) * limit
-    paged = results[start : start + limit]
-    # Strip description body from list responses
-    for s in paged:
-        s.description = None
+    paged = [s.model_copy(update={"description": None}) for s in results[start : start + limit]]
     return ScriptList(total=total, page=page, limit=limit, results=paged)
 
 
