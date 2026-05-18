@@ -1,0 +1,23 @@
+# Python virtual environments
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Pre-commit cache
+.pre-commit-cache/
+
+# VSCode
+.vscode/*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Website
+website/__pycache__/
+website/app/__pycache__/
+website/tests/__pycache__/
+website/.pytest_cache/

@@ -1,0 +1,11 @@
+# EmmyLuaCodeStyle config for the LuaLS built-in formatter
+# https://luals.github.io/wiki/formatter/
+# https://github.com/CppCXY/EmmyLuaCodeStyle
+
+[*.lua]
+indent_style = space
+indent_size = 4
+max_line_length = 120
+quote_style = double
+end_of_line = lf
+insert_final_newline = true
