@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Browse Scripts - ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="h2 mb-4">Browse Scripts</h1>
+
+    <div class="row g-2 mb-3 align-items-center">
+        <div class="col-auto flex-grow-1">
+            <input type="search" class="form-control" id="q" placeholder="Search…" />
+        </div>
+        <div class="col-auto">
+            <select class="form-select" id="filter-type">
+                <option value="">All types</option>
+                {% for t in types %}
+                <option value="{{ t }}">{{ t }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-auto">
+            <select class="form-select" id="filter-vehicle">
+                <option value="">All vehicles</option>
+                <option value="copter">Copter</option>
+                <option value="plane">Plane</option>
+                <option value="rover">Rover</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" id="show-broken">
+                <label class="form-check-label text-muted small" for="show-broken">Show broken</label>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-muted small" id="script-count">{{ scripts|length }} script(s) found</p>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="script-grid">
+        {% for s in scripts %}
+        <div class="col script-card-col" data-name="{{ s.name | lower }}" data-type="{{ s.type }}"
+            data-vehicles="{{ s.vehicle | join(' ') }}" data-desc="{{ s.short_description | lower }}"
+            data-status="{{ s.status }}">
+            <a class="card h-100 text-decoration-none text-dark{% if s.status == 'broken' %} border-danger{% endif %}"
+                href="{{ base_url }}{{ s.page_url }}">
+                <div class="card-body">
+                    <div class="d-flex gap-2 mb-2 flex-wrap">
+                        <span class="badge bg-primary">{{ s.type }}</span>
+                        {% if s.status == 'broken' %}
+                        <span class="badge bg-danger">broken</span>
+                        {% endif %}
+                    </div>
+                    <h5 class="card-title">{{ s.name }}</h5>
+                    <p class="card-text text-muted">{{ s.short_description }}</p>
+                </div>
+                <div class="card-footer text-muted small">
+                    v{{ s.version }} &middot; {{ s.date }}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<script>
+    (function () {
+        function applyFilters() {
+            var q = document.getElementById('q').value.trim().toLowerCase();
+            var type = document.getElementById('filter-type').value;
+            var vehicle = document.getElementById('filter-vehicle').value;
+            var showBroken = document.getElementById('show-broken').checked;
+            var cols = document.querySelectorAll('.script-card-col');
+            var visible = 0;
+            cols.forEach(function (col) {
+                var matchQ = !q || col.dataset.name.includes(q) || col.dataset.desc.includes(q);
+                var matchType = !type || col.dataset.type === type;
+                var vehicles = col.dataset.vehicles.split(' ');
+                var matchVehicle = !vehicle || vehicles.includes(vehicle) || vehicles.includes('all');
+                var matchBroken = showBroken || col.dataset.status !== 'broken';
+                var show = matchQ && matchType && matchVehicle && matchBroken;
+                col.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+            document.getElementById('script-count').textContent = visible + ' script(s) found';
+            var params = new URLSearchParams();
+            if (q) params.set('q', q);
+            if (type) params.set('type', type);
+            if (vehicle) params.set('vehicle', vehicle);
+            if (showBroken) params.set('broken', '1');
+            var qs = params.toString();
+            history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+        }
+
+        var params = new URLSearchParams(location.search);
+        if (params.get('q')) document.getElementById('q').value = params.get('q');
+        if (params.get('type')) document.getElementById('filter-type').value = params.get('type');
+        if (params.get('vehicle')) document.getElementById('filter-vehicle').value = params.get('vehicle');
+        if (params.get('broken')) document.getElementById('show-broken').checked = true;
+
+        document.getElementById('q').addEventListener('input', applyFilters);
+        document.getElementById('filter-type').addEventListener('change', applyFilters);
+        document.getElementById('filter-vehicle').addEventListener('change', applyFilters);
+        document.getElementById('show-broken').addEventListener('change', applyFilters);
+
+        applyFilters();
+    }());
+</script>
+{% endblock %}

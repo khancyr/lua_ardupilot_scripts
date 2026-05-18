@@ -1,0 +1,44 @@
+name: Lint
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+permissions:
+  contents: read
+
+jobs:
+  pre-commit:
+    name: pre-commit (luacheck, markdownlint, ruff, validate-scripts)
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install luacheck
+        run: sudo apt update && sudo apt-get install -y lua-check
+
+      - name: Install tooling dependencies
+        run: pip install -e '.[dev]'
+
+      - uses: pre-commit/action@v3.0.1
+
+  lua-syntax:
+    name: Lua syntax check (luac -p)
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua
+        run: sudo apt update && sudo apt-get install -y lua5.3
+
+      - name: Check all .lua files compile
+        run: |
+          find lua/applets lua/drivers lua/tools -name "*.lua" | while read -r f; do
+            luac5.3 -p "$f" || exit 1
+          done

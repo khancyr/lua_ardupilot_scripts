@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Contribute - ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="h2 mb-4">Contributing &amp; Support</h1>
+
+    <div class="row g-3">
+
+        <!-- Support callout -->
+        <div class="col-12">
+            <div class="card border-warning bg-warning bg-opacity-10" id="support">
+                <div class="card-body">
+                    <h5 class="card-title">&#x1F4AC; Need help?</h5>
+                    <p class="card-text">
+                        For questions about using scripts, setting up scripting on your autopilot, or debugging
+                        your own Lua code, please use the ArduPilot community forum - not GitHub issues.
+                    </p>
+                    <a class="btn btn-warning rounded-pill"
+                        href="https://discuss.ardupilot.org/c/onboard-lua-scripting/156" target="_blank" rel="noopener">
+                        <i class="bi bi-chat-dots me-2"></i>ArduPilot Lua Scripting forum
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report broken script -->
+        <div class="col-md-4">
+            <div class="card h-100" id="broken-script">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">&#x1F41B; Report a broken script</h5>
+                    <p class="card-text">
+                        If a script in this repository crashes, produces wrong results, or no longer works with
+                        a supported firmware version, open a GitHub issue using the
+                        <strong>Broken script</strong> template.
+                    </p>
+                    <p class="card-text">Please include:</p>
+                    <ul class="small text-muted mb-3">
+                        <li>Script name and path (e.g. <code>applets/HelloWorld</code>)</li>
+                        <li>ArduPilot firmware version and vehicle type</li>
+                        <li>Steps to reproduce and any error messages from the GCS</li>
+                    </ul>
+                    <a class="btn btn-outline-primary mt-auto"
+                        href="https://github.com/ArduPilot/lua_community_scripts/issues/new?template=broken_script.yml"
+                        target="_blank" rel="noopener">
+                        <i class="bi bi-github me-1"></i>Open a script issue
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report website bug -->
+        <div class="col-md-4">
+            <div class="card h-100" id="website-bug">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">&#x1F310; Report a website bug</h5>
+                    <p class="card-text">
+                        Found a problem with this website or the REST API? Open a GitHub issue using the
+                        <strong>Website / API bug</strong> template.
+                    </p>
+                    <a class="btn btn-outline-primary mt-auto"
+                        href="https://github.com/ArduPilot/lua_community_scripts/issues/new?template=website_bug.yml"
+                        target="_blank" rel="noopener">
+                        <i class="bi bi-github me-1"></i>Open a website issue
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit a script -->
+        <div class="col-md-4">
+            <div class="card h-100" id="submit-script">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">&#x1F4E6; Submit a new script</h5>
+                    <p class="card-text">
+                        Want to share your script with the community? Every contribution needs a
+                        <code>.lua</code> file and a matching <code>.md</code> documentation file with YAML
+                        frontmatter.
+                    </p>
+                    <table class="table table-sm small mb-3">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Example</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>name</code></td>
+                                <td><code>HelloWorld</code></td>
+                                <td>Unique across all scripts</td>
+                            </tr>
+                            <tr>
+                                <td><code>short_description</code></td>
+                                <td><code>Greets the GCS every 5 s</code></td>
+                                <td>Max 127 characters</td>
+                            </tr>
+                            <tr>
+                                <td><code>version</code></td>
+                                <td><code>1.0.0</code></td>
+                                <td>Semantic versioning</td>
+                            </tr>
+                            <tr>
+                                <td><code>date</code></td>
+                                <td><code>2026-05-18</code></td>
+                                <td>YYYY-MM-DD</td>
+                            </tr>
+                            <tr>
+                                <td><code>min_firmware</code></td>
+                                <td><code>4.5</code></td>
+                                <td>Use <code>4.5</code> if unknown</td>
+                            </tr>
+                            <tr>
+                                <td><code>vehicle</code></td>
+                                <td><code>[copter, plane]</code></td>
+                                <td>Optional; omit for all</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-outline-primary mt-auto"
+                        href="https://github.com/ArduPilot/lua_community_scripts/blob/main/CONTRIBUTING.md"
+                        target="_blank" rel="noopener">
+                        <i class="bi bi-file-text me-1"></i>Read CONTRIBUTING.md
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

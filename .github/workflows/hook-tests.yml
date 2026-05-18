@@ -1,0 +1,31 @@
+name: Hook Tests
+
+on:
+    push:
+        paths:
+            - ".pre-commit-hooks/**"
+            - "website/models.py"
+    pull_request:
+        paths:
+            - ".pre-commit-hooks/**"
+            - "website/models.py"
+
+permissions:
+    contents: read
+
+jobs:
+    validate-scripts:
+        name: validate_scripts.py tests
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
+
+            - name: Install dependencies
+              run: pip install -e '.[dev]'
+
+            - name: Run hook tests
+              run: pytest .pre-commit-hooks/tests/ -v

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{{ script.name }} - ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    {% if script.status == 'broken' %}
+    <div class="alert alert-danger d-flex align-items-center gap-2 mb-3" role="alert">
+        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+        <div>
+            <strong>This script is currently broken</strong> and may not work correctly.
+            It is excluded from the default browse listing until the issue is resolved.
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <span class="badge bg-primary mb-2">{{ script.type }}</span>
+            {% if script.status == 'broken' %}
+            <span class="badge bg-danger mb-2 ms-1">broken</span>
+            {% endif %}
+            <h1 class="h2">{{ script.name }}</h1>
+            <p class="lead text-muted">{{ script.short_description }}</p>
+
+            <table class="table table-sm w-auto mb-3">
+                <tbody>
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Version</th>
+                        <td>{{ script.version }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Date</th>
+                        <td>{{ script.date }}</td>
+                    </tr>
+                    {% if script.min_firmware %}
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Min firmware</th>
+                        <td>{{ script.min_firmware }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Vehicle</th>
+                        <td>{{ script.vehicle | join(", ") }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded border">
+                <code class="flex-grow-1 text-break small" id="raw-url">{{ script.download_url }}</code>
+                <a class="btn btn-primary text-nowrap" href="{{ script.download_url }}"
+                    download="{{ script.name }}.lua">
+                    <i class="bi bi-download me-1"></i>Download .lua
+                </a>
+            </div>
+            <script>(function () { var e = document.getElementById('raw-url'); e.textContent = location.origin + e.textContent; }());</script>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body script-body">
+            {{ description_html | safe }}
+        </div>
+    </div>
+
+    <a href="{{ base_url }}/scripts" class="text-decoration-none">
+        <i class="bi bi-arrow-left me-1"></i>Back to browse
+    </a>
+
+</div>
+{% endblock %}

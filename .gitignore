@@ -5,6 +5,7 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+*.egg-info/
 
 # Pre-commit cache
 .pre-commit-cache/
@@ -18,6 +19,7 @@ Thumbs.db
 
 # Website
 website/__pycache__/
-website/app/__pycache__/
+website/__pycache__/
 website/tests/__pycache__/
 website/.pytest_cache/
+dist/

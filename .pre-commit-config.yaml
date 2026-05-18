@@ -1,0 +1,41 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.22.1
+    hooks:
+      - id: markdownlint-cli2
+        exclude: ^LICENSE
+
+  - repo: local
+    hooks:
+      - id: luacheck
+        name: luacheck
+        language: system
+        entry: luacheck
+        args: [--config, .luacheckrc]
+        types: [file]
+        files: \.lua$
+        exclude: ^\.checks/
+
+      - id: validate-scripts
+        name: Validate script/doc pairs and frontmatter
+        language: python
+        entry: python .pre-commit-hooks/validate_scripts.py
+        pass_filenames: false
+        always_run: true
+        additional_dependencies: [pyyaml]

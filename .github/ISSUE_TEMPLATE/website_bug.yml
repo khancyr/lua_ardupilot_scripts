@@ -1,0 +1,43 @@
+name: "\U0001F310 Website / API bug"
+description: Report a problem with the browse website or the REST API.
+labels: ["bug", "website"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Need help using a script?**
+        > This tracker is for **website and API bugs only**.
+        > For scripting support please use the
+        > [ArduPilot Lua Scripting forum](https://discuss.ardupilot.org/c/onboard-lua-scripting/156).
+
+  - type: input
+    id: url
+    attributes:
+      label: Page or endpoint URL
+      placeholder: "e.g. https://lua.ardupilot.org/scripts/applets/HelloWorld"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's wrong?
+      description: What did you expect and what actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Click …
+        3. See error
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser or HTTP client
+      placeholder: "e.g. Firefox 126, curl 8.7, Python requests 2.32"

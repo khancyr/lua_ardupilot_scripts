@@ -1,0 +1,82 @@
+/* -- ArduPilot Lua Community Scripts - Bootstrap overrides -- */
+
+/* Script body: markdown-rendered content inside a card */
+.script-body h2 {
+    font-size: 1.1rem;
+    margin: 1.2rem 0 0.5rem;
+}
+
+.script-body p {
+    margin-bottom: 0.75rem;
+}
+
+.script-body table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.script-body th,
+.script-body td {
+    border: 1px solid #dee2e6;
+    padding: 0.4rem 0.75rem;
+}
+
+.script-body th {
+    background: #f8f9fa;
+}
+
+.script-body pre {
+    background: #1e2030;
+    color: #cdd6f4;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+
+.script-body pre code {
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    padding: 0;
+}
+
+/* API docs page: TOC link sizing */
+.docs-toc .list-group-item {
+    font-size: 0.875rem;
+    padding: 0.3rem 0.75rem;
+}
+
+/* API docs page: dark code blocks */
+pre.docs-pre {
+    background: #1e2030;
+    color: #cdd6f4;
+    padding: 1rem 1.25rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+
+pre.docs-pre code {
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    padding: 0;
+}
+
+/* GET method badge */
+.method-get {
+    display: inline-block;
+    background: #d1e7dd;
+    color: #0a3622;
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15em 0.55em;
+    border-radius: 0.25rem;
+    letter-spacing: 0.04em;
+}

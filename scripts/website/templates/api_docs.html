@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block title %}API Reference - ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h1 class="h2 mb-1">JSON API Reference</h1>
+    <p class="text-muted mb-4">
+        A static JSON API lets GCS software and tooling discover available scripts, their metadata,
+        and download links without scraping the website.
+        All responses use <code>Content-Type: application/json</code> and are served as static files,
+        so they can be fetched directly or cached aggressively.
+    </p>
+
+    <p class="mb-4">
+        All paths below are relative to the site root
+        (<code>{{ base_url or "/" }}</code>).
+        Prepend the base URL when running on a sub-path.
+    </p>
+
+    <!-- Types -->
+    <div class="card mb-4">
+        <div class="card-header fw-semibold">
+            <span class="badge bg-success me-2">GET</span>
+            <code>/api/v1/types.json</code>
+        </div>
+        <div class="card-body">
+            <p>Returns the list of script categories with how many scripts each contains.</p>
+            <h6 class="text-muted">Response - array of objects</h6>
+            <pre class="bg-light p-3 rounded small"><code>[
+  { "type": "applets", "count": 46 },
+  { "type": "drivers",  "count": 1  },
+  { "type": "tools",    "count": 2  }
+]</code></pre>
+            <table class="table table-sm table-bordered small mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>string</td>
+                        <td>Category identifier (<code>applets</code>, <code>drivers</code>, <code>tools</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><code>count</code></td>
+                        <td>integer</td>
+                        <td>Number of scripts in this category</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Scripts list -->
+    <div class="card mb-4">
+        <div class="card-header fw-semibold">
+            <span class="badge bg-success me-2">GET</span>
+            <code>/api/v1/scripts.json</code>
+        </div>
+        <div class="card-body">
+            <p>
+                Returns every script's metadata. The <code>description</code> field (full markdown body)
+                is omitted here to keep the payload small - fetch the per-script endpoint for the full text.
+            </p>
+            <h6 class="text-muted">Response</h6>
+            <pre class="bg-light p-3 rounded small"><code>{
+  "total": 49,
+  "results": [
+    {
+      "name":              "BatteryTag",
+      "type":              "applets",
+      "short_description": "Adds a battery ID tag to the log.",
+      "min_firmware":      "4.1",
+      "version":           "1.0",
+      "date":              "2023-06-01",
+      "download_url":      "/applets/BatteryTag.lua",
+      "page_url":          "/scripts/applets/BatteryTag",
+      "status":            "working",
+      "vehicle":           ["all"],
+      "description":       null
+    },
+    ...
+  ]
+}</code></pre>
+            <table class="table table-sm table-bordered small mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>total</code></td>
+                        <td>integer</td>
+                        <td>Total number of scripts</td>
+                    </tr>
+                    <tr>
+                        <td><code>results</code></td>
+                        <td>array</td>
+                        <td>Array of script objects (see fields below)</td>
+                    </tr>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>string</td>
+                        <td>Unique script identifier (matches the <code>.lua</code> file stem)</td>
+                    </tr>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>string</td>
+                        <td>Category: <code>applets</code>, <code>drivers</code>, or <code>tools</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>short_description</code></td>
+                        <td>string</td>
+                        <td>One-line summary</td>
+                    </tr>
+                    <tr>
+                        <td><code>min_firmware</code></td>
+                        <td>string</td>
+                        <td>Minimum ArduPilot firmware version required (MAJOR.MINOR[.PATCH])</td>
+                    </tr>
+                    <tr>
+                        <td><code>version</code></td>
+                        <td>string</td>
+                        <td>Script version (semantic version: MAJOR.MINOR[.PATCH])</td>
+                    </tr>
+                    <tr>
+                        <td><code>date</code></td>
+                        <td>string (YYYY-MM-DD)</td>
+                        <td>Last updated date</td>
+                    </tr>
+                    <tr>
+                        <td><code>download_url</code></td>
+                        <td>string</td>
+                        <td>Absolute or root-relative URL to the raw <code>.lua</code> file</td>
+                    </tr>
+                    <tr>
+                        <td><code>page_url</code></td>
+                        <td>string</td>
+                        <td>Root-relative URL to the HTML detail page for this script</td>
+                    </tr>
+                    <tr>
+                        <td><code>status</code></td>
+                        <td>string</td>
+                        <td>Script status: <code>working</code> or <code>broken</code>. Broken scripts are excluded from
+                            the default browse view.</td>
+                    </tr>
+                    <tr>
+                        <td><code>vehicle</code></td>
+                        <td>array of strings</td>
+                        <td>Supported vehicle types (<code>all</code>, <code>copter</code>, <code>plane</code>,
+                            <code>rover</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><code>description</code></td>
+                        <td>null</td>
+                        <td>Always <code>null</code> in the list endpoint - use the per-script endpoint for the full
+                            body</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Per-script detail -->
+    <div class="card mb-4">
+        <div class="card-header fw-semibold">
+            <span class="badge bg-success me-2">GET</span>
+            <code>/api/v1/scripts/{type}/{name}/index.json</code>
+        </div>
+        <div class="card-body">
+            <p>
+                Returns the full metadata for a single script, including its
+                <code>description</code> field which contains the raw Markdown source.
+            </p>
+            <h6 class="text-muted">Path parameters</h6>
+            <table class="table table-sm table-bordered small mb-3">
+                <thead class="table-light">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>Category: <code>applets</code>, <code>drivers</code>, or <code>tools</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>Script name, e.g. <code>BatteryTag</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6 class="text-muted">Response - same fields as the list endpoint, with <code>description</code> populated
+            </h6>
+            <pre class="bg-light p-3 rounded small"><code>{
+  "name":              "BatteryTag",
+  "type":              "applets",
+  "short_description": "Adds a battery ID tag to the log.",
+  "min_firmware":      "4.1",
+  "version":           "1.0",
+  "date":              "2023-06-01",
+  "download_url":      "/applets/BatteryTag.lua",
+  "page_url":          "/scripts/applets/BatteryTag",
+  "status":            "working",
+  "vehicle":           ["all"],
+  "description":       "# BatteryTag\n\nThis script ..."
+}</code></pre>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

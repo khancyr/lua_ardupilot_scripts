@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}ArduPilot Lua Community Scripts{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <!-- Hero -->
+    <div class="p-5 mb-4 bg-white rounded-3 border">
+        <h1 class="display-5 fw-bold">ArduPilot Lua Community Scripts</h1>
+        <p class="col-md-8 fs-5 text-muted">
+            A curated collection of community-contributed Lua scripts for ArduPilot autopilots.
+        </p>
+        <a class="btn btn-primary btn-lg" href="{{ base_url }}/scripts">
+            <i class="bi bi-collection me-2"></i>Browse Scripts
+        </a>
+    </div>
+
+    <!-- What are scripts -->
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title h5">What are ArduPilot Lua scripts?</h2>
+                    <p class="card-text">
+                        ArduPilot supports <a href="https://www.lua.org/" target="_blank" rel="noopener">Lua 5.3</a>
+                        scripting that runs in a safe, sandboxed environment alongside the flight code.
+                        Scripts can monitor vehicle state, control servos and relays, communicate with peripherals
+                        over serial or DroneCAN, and send messages to the GCS - without modifying the core firmware.
+                    </p>
+                    <p class="card-text mb-0">
+                        Scripts are stored on the autopilot's SD card at <code>APM/scripts/</code> and can be
+                        uploaded via MAVFTP from Mission Planner or any MAVLink-capable GCS.
+                        For full documentation see the
+                        <a href="https://ardupilot.org/copter/docs/common-lua-scripts.html" target="_blank"
+                            rel="noopener">ArduPilot Lua Scripts wiki page</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script type cards -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-rocket-takeoff me-2 text-primary"></i>Applets
+                    </h5>
+                    <p class="card-text text-muted">
+                        Ready-to-use scripts that require no editing. Drop them onto your SD card and go.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-cpu me-2 text-primary"></i>Drivers
+                    </h5>
+                    <p class="card-text text-muted">
+                        Full hardware drivers for peripherals not yet supported in the firmware.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-tools me-2 text-primary"></i>Tools
+                    </h5>
+                    <p class="card-text text-muted">
+                        Utility scripts for logging, monitoring, or flight-time assistance.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- API card -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title h5"><i class="bi bi-braces me-2 text-primary"></i>JSON API</h2>
+                    <p class="card-text">
+                        A static JSON API is available for GCS integrations and tooling that need to enumerate
+                        available scripts programmatically.
+                    </p>
+                    <ul class="mb-3">
+                        <li><code><a href="{{ base_url }}/api/v1/scripts.json">GET /api/v1/scripts.json</a></code> -
+                            full script index</li>
+                        <li><code><a href="{{ base_url }}/api/v1/types.json">GET /api/v1/types.json</a></code> -
+                            available categories with counts</li>
+                        <li><code>GET /api/v1/scripts/{type}/{name}/index.json</code> - individual script detail</li>
+                    </ul>
+                    <a href="{{ base_url }}/api-reference" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-braces me-1"></i>Full API reference
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

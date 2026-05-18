@@ -1,0 +1,46 @@
+name: Update docs.lua
+
+on:
+    schedule:
+        - cron: "0 6 * * 0"
+    workflow_dispatch: # allow manual trigger
+
+jobs:
+    update:
+        runs-on: ubuntu-slim
+        permissions:
+            contents: write
+            pull-requests: write
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Download latest docs.lua from ArduPilot master
+              run: |
+                  curl -fsSL \
+                    "https://raw.githubusercontent.com/ArduPilot/ardupilot/master/libraries/AP_Scripting/docs/docs.lua" \
+                    -o .checks/docs.lua
+
+            - name: Check for changes
+              id: diff
+              run: |
+                  if git diff --quiet .checks/docs.lua; then
+                    echo "changed=false" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "changed=true" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Create Pull Request
+              if: steps.diff.outputs.changed == 'true'
+              uses: peter-evans/create-pull-request@v6
+              with:
+                  commit-message: "chore: update vendored docs.lua from ArduPilot master"
+                  branch: chore/update-docs-lua
+                  title: "chore: update docs.lua from ArduPilot master"
+                  body: |
+                      Automated monthly update of `.checks/docs.lua` from
+                      [ArduPilot master](https://github.com/ArduPilot/ardupilot/blob/master/libraries/AP_Scripting/docs/docs.lua).
+
+                      Please review the diff before merging to ensure no regressions in
+                      luacheck or VSCode autocomplete.
+                  labels: automated, maintenance
