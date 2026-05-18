@@ -49,6 +49,14 @@ def _build_index(repo_root: Path) -> List[ScriptMeta]:
             if isinstance(vehicle, str):
                 vehicle = [vehicle]
 
+            raw_date = fm.get("date")
+            if isinstance(raw_date, date):
+                parsed_date = raw_date
+            elif isinstance(raw_date, str) and raw_date.strip():
+                parsed_date = date.fromisoformat(raw_date.strip())
+            else:
+                parsed_date = date(2000, 1, 1)
+
             scripts.append(
                 ScriptMeta(
                     name=str(fm.get("name", lua_path.stem)),
@@ -57,9 +65,7 @@ def _build_index(repo_root: Path) -> List[ScriptMeta]:
                     vehicle=vehicle,
                     min_firmware=str(fm.get("min_firmware") or "4.5"),
                     version=str(fm.get("version", "0.0.0")),
-                    date=fm.get("date")
-                    if isinstance(fm.get("date"), date)
-                    else date.fromisoformat(str(fm.get("date", "2000-01-01"))),
+                    date=parsed_date,
                     download_url=f"/api/v1/scripts/{dir_name}/{lua_path.stem}/raw",
                     doc_url=f"/scripts/{dir_name}/{lua_path.stem}",
                     description=body.strip(),

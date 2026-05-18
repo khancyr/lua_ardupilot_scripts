@@ -2,43 +2,58 @@
 {% block title %}{{ script.name }} — ArduPilot Lua Community Scripts{% endblock %}
 
 {% block content %}
-<div class="script-header">
-    <span class="card-type">{{ script.type }}</span>
-    <h1>{{ script.name }}</h1>
-    <p class="lead">{{ script.short_description }}</p>
+<div class="container py-4">
 
-    <table class="meta-table">
-        <tr>
-            <th>Version</th>
-            <td>{{ script.version }}</td>
-        </tr>
-        <tr>
-            <th>Date</th>
-            <td>{{ script.date }}</td>
-        </tr>
-        {% if script.min_firmware %}
-        <tr>
-            <th>Min firmware</th>
-            <td>{{ script.min_firmware }}</td>
-        </tr>
-        {% endif %}
-        <tr>
-            <th>Vehicle</th>
-            <td>{{ script.vehicle | join(", ") }}</td>
-        </tr>
-    </table>
+    <div class="card mb-3">
+        <div class="card-body">
+            <span class="badge bg-primary mb-2">{{ script.type }}</span>
+            <h1 class="h2">{{ script.name }}</h1>
+            <p class="lead text-muted">{{ script.short_description }}</p>
 
-    <div class="download-box">
-        <code>{{ request.url.scheme }}://{{ request.url.netloc }}{{ script.download_url }}</code>
-        <a class="btn" href="{{ script.download_url }}" download="{{ script.name }}.lua">
-            Download .lua
-        </a>
+            <table class="table table-sm w-auto mb-3">
+                <tbody>
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Version</th>
+                        <td>{{ script.version }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Date</th>
+                        <td>{{ script.date }}</td>
+                    </tr>
+                    {% if script.min_firmware %}
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Min firmware</th>
+                        <td>{{ script.min_firmware }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th class="text-muted fw-normal pe-4">Vehicle</th>
+                        <td>{{ script.vehicle | join(", ") }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex align-items-center gap-3 p-3 bg-light rounded border">
+                <code class="flex-grow-1 text-break small">
+                    {{- request.url.scheme -}}://{{- request.url.netloc -}}{{- script.download_url -}}
+                </code>
+                <a class="btn btn-primary text-nowrap" href="{{ script.download_url }}"
+                    download="{{ script.name }}.lua">
+                    <i class="bi bi-download me-1"></i>Download .lua
+                </a>
+            </div>
+        </div>
     </div>
+
+    <div class="card mb-3">
+        <div class="card-body script-body">
+            {{ description_html | safe }}
+        </div>
+    </div>
+
+    <a href="/scripts" class="text-decoration-none">
+        <i class="bi bi-arrow-left me-1"></i>Back to browse
+    </a>
+
 </div>
-
-<article class="script-body">
-    {{ description_html | safe }}
-</article>
-
-<p><a href="/scripts">← Back to browse</a></p>
 {% endblock %}

@@ -2,37 +2,59 @@
 {% block title %}Browse Scripts — ArduPilot Lua Community Scripts{% endblock %}
 
 {% block content %}
-<h1>Browse Scripts</h1>
+<div class="container py-4">
 
-<form class="filters" method="get" action="/scripts">
-    <input type="search" name="q" value="{{ q }}" placeholder="Search…" />
-    <select name="type">
-        <option value="">All types</option>
-        {% for t in types %}
-        <option value="{{ t }}" {% if type==t %}selected{% endif %}>{{ t }}</option>
+    <h1 class="h2 mb-4">Browse Scripts</h1>
+
+    <form class="row g-2 mb-3 align-items-center" method="get" action="/scripts">
+        <div class="col-auto flex-grow-1">
+            <input type="search" class="form-control" name="q" value="{{ q }}" placeholder="Search…" />
+        </div>
+        <div class="col-auto">
+            <select class="form-select" name="type">
+                <option value="">All types</option>
+                {% for t in types %}
+                <option value="{{ t }}" {% if type==t %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-auto">
+            <select class="form-select" name="vehicle">
+                <option value="">All vehicles</option>
+                <option value="copter" {% if vehicle=="copter" %}selected{% endif %}>Copter</option>
+                <option value="plane" {% if vehicle=="plane" %}selected{% endif %}>Plane</option>
+                <option value="rover" {% if vehicle=="rover" %}selected{% endif %}>Rover</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search me-1"></i>Filter
+            </button>
+        </div>
+    </form>
+
+    <p class="text-muted small">{{ scripts|length }} script(s) found</p>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        {% for s in scripts %}
+        <div class="col">
+            <a class="card h-100 text-decoration-none text-dark" href="{{ s.doc_url }}">
+                <div class="card-body">
+                    <span class="badge bg-primary mb-2">{{ s.type }}</span>
+                    <h5 class="card-title">{{ s.name }}</h5>
+                    <p class="card-text text-muted">{{ s.short_description }}</p>
+                </div>
+                <div class="card-footer text-muted small">
+                    v{{ s.version }} &middot; {{ s.date }}
+                </div>
+            </a>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p class="text-muted">No scripts match your search.</p>
+        </div>
         {% endfor %}
-    </select>
-    <select name="vehicle">
-        <option value="">All vehicles</option>
-        <option value="copter" {% if vehicle=="copter" %}selected{% endif %}>Copter</option>
-        <option value="plane" {% if vehicle=="plane" %}selected{% endif %}>Plane</option>
-        <option value="rover" {% if vehicle=="rover" %}selected{% endif %}>Rover</option>
-    </select>
-    <button type="submit">Filter</button>
-</form>
+    </div>
 
-<p class="result-count">{{ scripts|length }} script(s) found</p>
-
-<div class="card-grid">
-    {% for s in scripts %}
-    <a class="card" href="{{ s.doc_url }}">
-        <span class="card-type">{{ s.type }}</span>
-        <h3>{{ s.name }}</h3>
-        <p>{{ s.short_description }}</p>
-        <span class="card-meta">v{{ s.version }} · {{ s.date }}</span>
-    </a>
-    {% else %}
-    <p>No scripts match your search.</p>
-    {% endfor %}
 </div>
 {% endblock %}

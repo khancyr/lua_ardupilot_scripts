@@ -1,299 +1,9 @@
-/* ── Reset & base ───────────────────────────────────────────── */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* ── ArduPilot Lua Community Scripts — Bootstrap overrides ── */
 
-body {
-    font-family: system-ui, -apple-system, sans-serif;
-    line-height: 1.6;
-    color: #1a1a2e;
-    background: #f8f9fa;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-a {
-    color: #0066cc;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-code {
-    background: #e8ecf0;
-    padding: 0.1em 0.35em;
-    border-radius: 3px;
-    font-size: 0.9em;
-}
-
-/* ── Navigation ─────────────────────────────────────────────── */
-header {
-    background: #1a1a2e;
-    color: #fff;
-    padding: 0 1.5rem;
-}
-
-nav {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    height: 3.5rem;
-}
-
-nav a {
-    color: #ccd;
-    font-weight: 500;
-}
-
-nav a:hover {
-    color: #fff;
-    text-decoration: none;
-}
-
-nav .brand {
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-right: auto;
-}
-
-/* ── Main content ───────────────────────────────────────────── */
-main {
-    flex: 1;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-    width: 100%;
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.85rem;
-    color: #666;
-    border-top: 1px solid #dde;
-}
-
-/* ── Buttons ────────────────────────────────────────────────── */
-.btn {
-    display: inline-block;
-    background: #0066cc;
-    color: #fff;
-    padding: 0.5rem 1.2rem;
-    border-radius: 4px;
-    font-weight: 600;
-}
-
-.btn:hover {
-    background: #0055aa;
-    text-decoration: none;
-}
-
-/* ── Hero section ───────────────────────────────────────────── */
-.hero {
-    text-align: center;
-    padding: 3rem 1rem;
-}
-
-.hero h1 {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-}
-
-.hero .lead {
-    font-size: 1.15rem;
-    color: #444;
-    margin-bottom: 1.5rem;
-}
-
-/* ── Explainer section ──────────────────────────────────────── */
-.explainer {
-    max-width: 720px;
-    margin: 0 auto;
-}
-
-.explainer h2 {
-    margin: 2rem 0 0.5rem;
-}
-
-.explainer p {
-    margin-bottom: 0.75rem;
-    color: #333;
-}
-
-.explainer dl {
-    margin: 0.5rem 0 1rem 1rem;
-}
-
-.explainer dt {
-    font-weight: 600;
-    margin-top: 0.5rem;
-}
-
-.explainer dd {
-    color: #444;
-    margin-left: 1rem;
-}
-
-/* ── Browse filters ─────────────────────────────────────────── */
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.filters input,
-.filters select {
-    padding: 0.4rem 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.95rem;
-}
-
-.filters button {
-    background: #0066cc;
-    color: #fff;
-    border: none;
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.95rem;
-}
-
-.result-count {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-/* ── Script cards ───────────────────────────────────────────── */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
-}
-
-.card {
-    background: #fff;
-    border: 1px solid #dde;
-    border-radius: 6px;
-    padding: 1rem 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    transition: box-shadow 0.15s;
-    color: inherit;
-}
-
-.card:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    text-decoration: none;
-}
-
-.card h3 {
-    font-size: 1rem;
-    color: #0066cc;
-}
-
-.card p {
-    font-size: 0.9rem;
-    color: #444;
-    flex: 1;
-}
-
-.card-meta {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: auto;
-}
-
-.card-type {
-    display: inline-block;
-    background: #e0eaff;
-    color: #0044aa;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.1em 0.5em;
-    border-radius: 3px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* ── Script detail ──────────────────────────────────────────── */
-.script-header {
-    background: #fff;
-    border: 1px solid #dde;
-    border-radius: 6px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.script-header h1 {
-    margin: 0.4rem 0 0.5rem;
-    font-size: 1.6rem;
-}
-
-.script-header .lead {
-    color: #444;
-    margin-bottom: 1rem;
-}
-
-.meta-table {
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-.meta-table th,
-.meta-table td {
-    padding: 0.25rem 0.75rem 0.25rem 0;
-    text-align: left;
-}
-
-.meta-table th {
-    color: #666;
-    font-weight: 500;
-    width: 130px;
-}
-
-.download-box {
-    background: #f0f4ff;
-    border: 1px solid #c0d0ee;
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.download-box code {
-    background: none;
-    padding: 0;
-    word-break: break-all;
-    flex: 1;
-}
-
-.script-body {
-    background: #fff;
-    border: 1px solid #dde;
-    border-radius: 6px;
-    padding: 1.5rem;
-}
-
+/* Script body: markdown-rendered content inside a card */
 .script-body h2 {
+    font-size: 1.1rem;
     margin: 1.2rem 0 0.5rem;
-    font-size: 1.15rem;
 }
 
 .script-body p {
@@ -309,244 +19,64 @@ footer {
 
 .script-body th,
 .script-body td {
-    border: 1px solid #dde;
+    border: 1px solid #dee2e6;
     padding: 0.4rem 0.75rem;
 }
 
 .script-body th {
-    background: #f0f2f5;
+    background: #f8f9fa;
 }
 
-/* ── Contribute page ────────────────────────────────────────── */
-.contribute-title {
-    font-size: 1.9rem;
-    margin-bottom: 1.5rem;
-}
-
-.contrib-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-    gap: 1.25rem;
-}
-
-.contrib-card {
-    background: #fff;
-    border: 1px solid #dde;
-    border-radius: 6px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-}
-
-.contrib-card h2 {
-    font-size: 1.1rem;
-    margin: 0 0 0.25rem;
-}
-
-.contrib-card p {
-    color: #333;
-    font-size: 0.95rem;
-    margin: 0;
-}
-
-.contrib-card ul {
-    margin: 0;
-    padding-left: 1.4rem;
-    font-size: 0.95rem;
-    color: #333;
-}
-
-.contrib-card ul li {
-    margin: 0.2rem 0;
-}
-
-.callout-forum {
-    border-color: #b0c4de;
-    background: #f0f4ff;
-}
-
-.btn-outline {
-    background: transparent;
-    color: #0066cc;
-    border: 2px solid #0066cc;
-    margin-top: auto;
-}
-
-.btn-outline:hover {
-    background: #0066cc;
-    color: #fff;
-    text-decoration: none;
-}
-
-.contrib-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.88rem;
-    margin: 0.4rem 0;
-}
-
-.contrib-table th {
-    text-align: left;
-    padding: 0.35rem 0.6rem;
-    background: #f0f2f5;
-    border-bottom: 2px solid #dde;
-    font-weight: 600;
-}
-
-.contrib-table td {
-    padding: 0.35rem 0.6rem;
-    border-bottom: 1px solid #eee;
-    vertical-align: top;
-}
-
-@media (max-width: 560px) {
-    .contrib-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ── API docs page ──────────────────────────────────────────── */
-.docs-layout {
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    gap: 2.5rem;
-    align-items: start;
-}
-
-.docs-toc {
-    position: sticky;
-    top: 1.5rem;
-    background: #fff;
-    border: 1px solid #dde;
-    border-radius: 6px;
-    padding: 1rem 1.2rem;
-}
-
-.docs-toc h3 {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #888;
-    margin-bottom: 0.6rem;
-}
-
-.docs-toc ul {
-    list-style: none;
-}
-
-.docs-toc li {
-    margin: 0.3rem 0;
-}
-
-.docs-toc a {
-    font-size: 0.9rem;
-    color: #444;
-}
-
-.docs-toc a:hover {
-    color: #0066cc;
-}
-
-.docs-content h1 {
-    font-size: 1.9rem;
-    margin-bottom: 1.5rem;
-}
-
-.docs-content section {
-    padding-bottom: 2.5rem;
-    margin-bottom: 2.5rem;
-    border-bottom: 1px solid #e8ecf0;
-}
-
-.docs-content section:last-child {
-    border-bottom: none;
-}
-
-.docs-content h2 {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 1.15rem;
-    margin: 0 0 0.75rem;
-    font-family: monospace;
-    word-break: break-word;
-}
-
-.docs-content h3 {
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: #777;
-    margin: 1.25rem 0 0.4rem;
-}
-
-.docs-content p {
-    margin-bottom: 0.75rem;
-    color: #333;
-}
-
-.method-badge {
-    display: inline-block;
-    padding: 0.15em 0.55em;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: monospace;
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
-}
-
-.method-badge.get {
-    background: #d4edda;
-    color: #1a6630;
-}
-
-.docs-content table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    margin: 0.5rem 0 1rem;
-}
-
-.docs-content th {
-    text-align: left;
-    padding: 0.4rem 0.75rem;
-    background: #f0f2f5;
-    border-bottom: 2px solid #dde;
-    font-weight: 600;
-}
-
-.docs-content td {
-    padding: 0.4rem 0.75rem;
-    border-bottom: 1px solid #eee;
-    vertical-align: top;
-}
-
-.docs-content pre {
+.script-body pre {
     background: #1e2030;
     color: #cdd6f4;
-    padding: 1rem 1.25rem;
-    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
     overflow-x: auto;
     font-size: 0.85rem;
     line-height: 1.55;
 }
 
-.docs-content pre code {
+.script-body pre code {
     background: none;
-    padding: 0;
-    font-size: inherit;
     color: inherit;
+    font-size: inherit;
+    padding: 0;
 }
 
-@media (max-width: 680px) {
-    .docs-layout {
-        grid-template-columns: 1fr;
-    }
+/* API docs page: TOC link sizing */
+.docs-toc .list-group-item {
+    font-size: 0.875rem;
+    padding: 0.3rem 0.75rem;
+}
 
-    .docs-toc {
-        position: static;
-    }
+/* API docs page: dark code blocks */
+pre.docs-pre {
+    background: #1e2030;
+    color: #cdd6f4;
+    padding: 1rem 1.25rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+
+pre.docs-pre code {
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    padding: 0;
+}
+
+/* GET method badge */
+.method-get {
+    display: inline-block;
+    background: #d1e7dd;
+    color: #0a3622;
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15em 0.55em;
+    border-radius: 0.25rem;
+    letter-spacing: 0.04em;
 }

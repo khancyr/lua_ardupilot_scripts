@@ -2,38 +2,82 @@
 {% block title %}ArduPilot Lua Community Scripts{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <h1>ArduPilot Lua Community Scripts</h1>
-    <p class="lead">
-        A curated collection of community-contributed Lua scripts for ArduPilot autopilots.
-    </p>
-    <a class="btn" href="/scripts">Browse Scripts</a>
-</section>
+<div class="container py-4">
 
-<section class="explainer">
-    <h2>What are ArduPilot Lua scripts?</h2>
-    <p>
-        ArduPilot supports <a href="https://www.lua.org/" target="_blank" rel="noopener">Lua 5.3</a>
-        scripting that runs in a safe, sandboxed environment alongside the flight code.
-        Scripts can monitor vehicle state, control servos and relays, communicate with peripherals
-        over serial or DroneCAN, and send messages to the GCS — without modifying the core firmware.
-    </p>
-    <p>
-        Scripts are stored on the autopilot's SD card at <code>APM/scripts/</code> and can be
-        uploaded via MAVFTP from Mission Planner or any MAVLink-capable GCS.
-        For full documentation on how to get started visit the
-        <a href="https://ardupilot.org/copter/docs/common-lua-scripts.html" target="_blank" rel="noopener">ArduPilot Lua
-            Scripts wiki page</a>.
-    </p>
+    <!-- Hero -->
+    <div class="p-5 mb-4 bg-white rounded-3 border">
+        <h1 class="display-5 fw-bold">ArduPilot Lua Community Scripts</h1>
+        <p class="col-md-8 fs-5 text-muted">
+            A curated collection of community-contributed Lua scripts for ArduPilot autopilots.
+        </p>
+        <a class="btn btn-primary btn-lg" href="/scripts">
+            <i class="bi bi-collection me-2"></i>Browse Scripts
+        </a>
+    </div>
 
-    <h2>Script types</h2>
-    <dl>
-        <dt>Applets</dt>
-        <dd>Ready-to-use scripts that require no editing. Drop them onto your SD card and go.</dd>
-        <dt>Drivers</dt>
-        <dd>Full hardware drivers for peripherals not yet supported in the firmware.</dd>
-        <dt>Tools</dt>
-        <dd>Utility scripts for logging, monitoring, or flight-time assistance.</dd>
-    </dl>
-</section>
+    <!-- What are scripts -->
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title h5">What are ArduPilot Lua scripts?</h2>
+                    <p class="card-text">
+                        ArduPilot supports <a href="https://www.lua.org/" target="_blank" rel="noopener">Lua 5.3</a>
+                        scripting that runs in a safe, sandboxed environment alongside the flight code.
+                        Scripts can monitor vehicle state, control servos and relays, communicate with peripherals
+                        over serial or DroneCAN, and send messages to the GCS — without modifying the core firmware.
+                    </p>
+                    <p class="card-text mb-0">
+                        Scripts are stored on the autopilot's SD card at <code>APM/scripts/</code> and can be
+                        uploaded via MAVFTP from Mission Planner or any MAVLink-capable GCS.
+                        For full documentation see the
+                        <a href="https://ardupilot.org/copter/docs/common-lua-scripts.html" target="_blank"
+                            rel="noopener">ArduPilot Lua Scripts wiki page</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script type cards -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-rocket-takeoff me-2 text-primary"></i>Applets
+                    </h5>
+                    <p class="card-text text-muted">
+                        Ready-to-use scripts that require no editing. Drop them onto your SD card and go.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-cpu me-2 text-primary"></i>Drivers
+                    </h5>
+                    <p class="card-text text-muted">
+                        Full hardware drivers for peripherals not yet supported in the firmware.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-tools me-2 text-primary"></i>Tools
+                    </h5>
+                    <p class="card-text text-muted">
+                        Utility scripts for logging, monitoring, or flight-time assistance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
