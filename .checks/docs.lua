@@ -2654,7 +2654,7 @@ serialLED = {}
 
 -- Send the configured RGB values to the LED string
 ---@param chan integer -- output number to which the leds are attached 1-16
----@return boolean -- true if successful
+---@return boolean -- true if successful 
 function serialLED:send(chan) end
 
 --  Set the data for LED_number on the string attached channel output
@@ -3724,7 +3724,7 @@ function arming:pre_arm_checks() end
 function arming:disarm() end
 
 
--- The ahrs library represents the Attitude Heading Reference System computed by the autopilot.
+-- The ahrs library represents the Attitude Heading Reference System computed by the autopilot. 
 -- It provides estimates for the vehicles attitude, and position.
 ahrs = {}
 
@@ -4133,7 +4133,7 @@ function fence:get_breach_direction_NED(fence_type) end
 
 -- Rally library
 rally = {}
--- Returns a specfic rally by index as a Location
+-- Returns a specfic rally by index as a Location 
 ---@param index integer -- 0 indexed
 ---@return Location_ud|nil
 function rally:get_rally_location(index) end
@@ -4490,3 +4490,4 @@ function DroneCAN_Handle_ud:request(target_node, payload) end
 ---@param payload string -- payload for message
 ---@return boolean -- true if send succeeded
 function DroneCAN_Handle_ud:broadcast(payload) end
+
