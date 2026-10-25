@@ -127,7 +127,7 @@ def main() -> None:
         md_out = APPLETS_DIR / f"{lua_stem}.md"
 
         if lua_out.exists() and md_out.exists():
-            print(f"  skip {lua_stem} (already exists)")
+            lua_out.write_bytes(_fetch(f"{BASE_RAW}/{lua_stem}.lua") or lua_out.read_bytes())
             skipped += 1
             continue
 
